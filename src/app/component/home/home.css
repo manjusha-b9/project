@@ -1,0 +1,61 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.hero {
+  height: 90vh;
+  background: linear-gradient(to right, #007bff, #00c6ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 22px;
+  margin-bottom: 30px;
+}
+
+.hero-content button {
+  padding: 15px 30px;
+  border: none;
+  background: white;
+  color: #007bff;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.hero-content button:hover {
+  background: #f1f1f1;
+}
+
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 60px;
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  width: 300px;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  text-align: center;
+  background: white;
+}
+
+.feature-card h2 {
+  color: #007bff;
+  margin-bottom: 15px;
+}

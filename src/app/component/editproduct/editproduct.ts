@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Productservice } from '../../services/productservice';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Productmodel } from '../../module/productmodel';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class Editproduct implements OnInit {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
-  product: any = {}; // initialize as object for ngModel bindings
+  product!: Productmodel // initialize as object for ngModel bindings
 
   ngOnInit(): void {
     const idParam = this.route.snapshot.paramMap.get('id');

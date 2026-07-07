@@ -1,21 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Addproduct } from './addproduct';
-import { provideHttpClient } from '@angular/common/http';
+import { Login } from './login';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
 
-describe('Addproduct', () => {
-  let component: Addproduct;
-  let fixture: ComponentFixture<Addproduct>;
+describe('Login', () => {
+  let component: Login;
+  let fixture: ComponentFixture<Login>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Addproduct],
-      providers:[provideHttpClient(),provideHttpClientTesting()]
+      imports: [Login],
+            providers:[provideHttpClient(),provideHttpClientTesting()]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Addproduct);
+    fixture = TestBed.createComponent(Login);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

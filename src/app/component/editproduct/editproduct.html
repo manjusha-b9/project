@@ -1,19 +1,22 @@
 <h2>Edit Product</h2>
 
 <form (ngSubmit)="UpdateProduct()">
-    <label>Name:</label>
-    <input type="text" [(ngModel)]="product.name" name="name">
+    <label for="name">Name:</label>
+    <input  id="name" type="text" [(ngModel)]="product.name" name="name">
     <br>
-    <label>Description:</label>
-    <input type="text" [(ngModel)]="product.description" name="description">
+    <label for="description">Description:</label>
+    <input id="description" type="text" [(ngModel)]="product.description" name="description">
     <br>
-    <label>Price:</label>
-    <input type ="number" [(ngModel)]="product.price" name="price">
+    <label for="price">Price:</label>
+    <input id="price" type ="number" [(ngModel)]="product.price" name="price">
     <br>
-    <label>Category:</label>
-    <input type="text" [(ngModel)]="product.category" name="category">
+    <label for="image">Image:</label>
+    <input id="image" type="text" [(ngModel)]="product.image" name="image">
     <br>
-    <label>Stock:</label>
-    <input type="number" [(ngModel)]="product.stock" name="stock">
+    <label for="category">Category:</label>
+    <input id="category" type="text" [(ngModel)]="product.category" name="category">
+    <br>
+    <label for="stock">Stock:</label>
+    <input id="stock" type="number" [(ngModel)]="product.stock" name="stock">
 <button type="submit">Save</button>
 </form>

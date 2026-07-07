@@ -1,0 +1,36 @@
+<h2>Place Order</h2>
+
+@if (product) {
+
+<div class="product-card">
+
+  <img [src]="product.image" [alt]="product.name" width="200">
+
+  <h3>{{ product.name }}</h3>
+
+  <p><strong>Price:</strong> ₹{{ product.price }}</p>
+
+  <p><strong>Category:</strong> {{ product.category }}</p>
+
+</div>
+
+<form [formGroup]="orderForm" (ngSubmit)="placeOrder()">
+
+  <label for="quantity">Quantity</label>
+  <input id="quantity" type="number" formControlName="quantity">
+
+  <label for="address">Address</label>
+  <input id="address" type="text" formControlName="address">
+
+  <label for="city">City</label>
+  <input id="city" type="text" formControlName="city">
+  <label for="postalCode">Postal Code</label>
+  <input id="postalCode" type="text" formControlName="postalCode">
+
+  <button type="submit">
+    Place Order
+  </button>
+
+</form>
+
+}

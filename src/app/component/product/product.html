@@ -1,9 +1,13 @@
+<button class="add-btn" (click)="addProduct()">
+  +Add Product
+</button>
+
 <div class="product-container">
   @for (product of products; track product.name) {
     <div class="product-card">
       <h3>{{product.name}}</h3>
 
-      <p><strong>ID:</strong> {{product.id}}</p>
+      <img [src]="product.image" [alt]="product.name" class="product-image">
 
       <p><strong>Description:</strong> {{product.description}}</p>
 
@@ -13,7 +17,8 @@
 
       <p><strong>Stock:</strong> {{product.stock}}</p>
 <button (click)="Edit(product.id)" >Edit</button>
-      <button (click)="cart()">Add to Cart</button>
+      <button (click)="cart(product)">Add to Cart</button>
     </div>
   }
+
 </div>  

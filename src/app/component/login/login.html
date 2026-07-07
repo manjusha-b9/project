@@ -1,0 +1,24 @@
+<div class="auth-container">
+<h2> {{ isLogin ? 'Login' : 'Register' }}</h2>
+<form [formGroup]="authForm" (ngSubmit)="submit()">
+    @if(!isLogin){
+        <label for="name">Name:</label>
+        <input id="name" type="text" formControlName="name">
+    }
+    <label for="email">Email:</label>
+    <input id="email" type="email" formControlName="email">
+    <label for="password">Password:</label>
+    <input id="password" type="password" formControlName="password">
+
+    <button type="submit">
+        {{ isLogin ? 'Login' :'Register'}}
+    </button>
+</form>
+<p>
+    {{isLogin ? "Don't have an account?":"Aleready have an account?"}}
+
+    <a href="javascript:void(0)" (click)="toggleForm()">
+        {{ isLogin ? "Register":"Login"}}
+    </a>
+</p>
+</div>

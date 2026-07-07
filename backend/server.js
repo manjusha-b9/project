@@ -22,6 +22,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/ecommerceDB").then
 
 //create user schema and model
 const userSchema=new mongoose.Schema({
+    userId:String,
     name:String,
     email:String,
     password:String
@@ -43,8 +44,9 @@ const Product=mongoose.model("Product",productSchema);
 
 // Order Model
 const orderSchema = new mongoose.Schema({
+    orderId:Number,
     userId: String,
-
+    
     orderItems: [
         {
             name: String,
@@ -105,7 +107,13 @@ app.post("/products/add", async (req, res) => {
 
     try {
 
-        const product = new Product(req.body);
+        const lastproduct=await Product.findOne().sort({id:-1});
+        //genarate id
+        const nextId=lastproduct?lastproduct.id+1:1;
+        const product=new Product({
+            id:nextId,
+            ...req.body
+        })
 
         await product.save();
 
@@ -158,11 +166,25 @@ app.delete("/products/delete/:id", async (req, res) => {
 
 });
 //place order
-app.post("/order", async (req, res) => {
+app.post("/orders/add", async (req, res) => {
 
     try {
+        //find the last order
+        const lastOrder=await Order.findOne().sort({orderId:-1});
+        //genarate next orderid
+        const nextOrderId=lastOrder ? lastOrder.orderId +1:1;
 
-        const order = new Order(req.body);
+
+        const order = new Order({ 
+            orderId:nextOrderId,
+            userId: req.body.userId,
+
+            orderItems: req.body.orderItems,
+
+            shippingAddress: req.body.shippingAddress,
+
+            totalPrice: req.body.totalPrice
+        });
 
         await order.save();
 
@@ -192,11 +214,11 @@ app.get("/orders", async (req, res) => {
 
 });
 // Get Order By Id
-app.get("/orders/:id", async (req, res) => {
+app.get("/orders/:userId", async (req, res) => {
 
     try {
 
-        const order = await Order.findById(req.params.id);
+        const order = await Order.find({userId:req.params.userId});
 
         res.json(order);
 
@@ -209,6 +231,45 @@ app.get("/orders/:id", async (req, res) => {
     }
 
 });
+
+//registor user
+
+app.post('/register',async(req,res)=>{
+    try{
+        const count=await User.countDocuments();
+        const userId='U'+String(count+1).padStart(3,'0');
+        const user=new User({
+            userId,
+            name:req.body.name,
+            email:req.body.email,
+            password:req.body.password
+        });
+        await user.save();
+        res.status(201).json(user);
+    } catch(error){
+        console.error(error);
+        res.status(500).json({message:error.message})
+    }
+})
+//login form
+
+app.post('/login',async(req,res)=>{
+    try{
+        const user=await User.findOne({
+            email:req.body.email,
+            password:req.body.password
+        });
+        if(!user){
+            return res.status(401).json({
+                message:"Invalid Email Or Password"
+            });
+        }
+        res.status(200).json(user);
+
+    }catch(error){
+        res.status(500).json(error);
+    }
+})
 //run server
 app.listen(3000,()=>{
     console.log("Server is running on port 3000");

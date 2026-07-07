@@ -1,23 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Editproduct } from './editproduct';
+import {  OrderComponent} from './order';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 
-describe('Editproduct', () => {
-  let component: Editproduct;
-  let fixture: ComponentFixture<Editproduct>;
+describe('Order', () => {
+  let component: OrderComponent;
+  let fixture: ComponentFixture<OrderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Editproduct],
+      imports: [OrderComponent],
       providers:[provideHttpClient(),provideHttpClientTesting(),
-         {
+          {
           provide:ActivatedRoute,
           useValue:{
             snapshot:{
-              paramMap:convertToParamMap({
+              paramMap:convertToParamMap ({
                 id:'1'
               }),
               queryParamMap:convertToParamMap({})
@@ -28,7 +28,7 @@ describe('Editproduct', () => {
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Editproduct);
+    fixture = TestBed.createComponent(OrderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

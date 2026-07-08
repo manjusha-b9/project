@@ -11,6 +11,13 @@ import { Router } from '@angular/router';
 })
 export class Addproduct implements OnInit{
 productForm!:FormGroup;
+
+categories: string[] = [
+    'Electronics',
+    'Laptops',
+    'Fashion',
+    'Accessories'
+  ];
 private productService=inject(Productservice);
 private fb=inject(FormBuilder);
 private router=inject(Router);

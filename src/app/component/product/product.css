@@ -1,62 +1,90 @@
-.product-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 20px;
+.search-container{
+    text-align:center;
+    margin:25px;
 }
 
-.product-card {
-  width: 300px;
-  padding: 20px;
-  border-radius: 10px;
-  background: #fff;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-  transition: 0.3s;
+.search-container input{
+    width:400px;
+    max-width:90%;
+    padding:12px;
+    font-size:16px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    outline:none;
 }
 
-.product-card:hover {
-  transform: translateY(-5px);
+.search-container input:focus{
+    border-color:#1976d2;
 }
 
-.product-card h3 {
-  color: #1976d2;
-  margin-bottom: 10px;
-}
-
-.product-card p {
-  margin: 8px 0;
-  color: #555;
-}
-
-button {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  background: #19d24d;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #1565c0;
-}
-.product-image{
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom:10px;
-}
 .add-btn{
-  margin: 20px;
-  padding: 10px 20px;
-  background: green;
-  color:white;
-  border: none;
-  border-radius: 5px;
-  cursor:pointer;
+    background:#1976d2;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:6px;
+    cursor:pointer;
+    margin:20px;
 }
 .add-btn:hover{
-  background: rgb(95, 20, 52);
+    background:#1565c0;
+}
+
+.product-container{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:20px;
+    padding:20px;
+}
+
+.product-card{
+    width:280px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:15px;
+    text-align:center;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+.product-image{
+    width:200px;
+    height:200px;
+    object-fit:cover;
+    margin-bottom:10px;
+}
+
+.product-card button{
+    margin:5px;
+    padding:8px 15px;
+    cursor:pointer;
+}
+
+.no-data{
+    text-align:center;
+    color:red;
+    margin-top:40px;
+}
+.edit-btn{
+    background:#ff9800;
+    color:white;
+    border:none;
+    padding:8px 15px;
+    border-radius:5px;
+    cursor:pointer;
+}
+.edit-btn:hover{
+    background:#e68900;
+}
+
+.cart-btn{
+    background:#4caf50;
+    color:white;
+    border:none;
+    padding:8px 15px;
+    border-radius:5px;
+    cursor:pointer;
+}
+.cart-btn:hover{
+    background:#388e3c;
 }

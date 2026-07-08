@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -9,4 +9,33 @@ import { RouterLink } from '@angular/router';
 })
 export class Navbar {
 
+userName = '';
+  isLoggedIn = false;
+
+  constructor(private router: Router) {
+    this.checkLogin();
+  }
+
+  checkLogin(): void {
+    const userId = localStorage.getItem('userId');
+    const name = localStorage.getItem('userName');
+if (userId && name) {
+      this.isLoggedIn = true;
+      this.userName = name;
+    } else {
+      this.isLoggedIn = false;
+      this.userName = '';
+    }
+  }
+  logout(): void {
+    localStorage.removeItem('userId');
+    localStorage.removeItem('name');
+
+    this.isLoggedIn = false;
+    this.userName = '';
+
+    alert('Logged out successfully.');
+
+    this.router.navigate(['/login']);
+  }
 }

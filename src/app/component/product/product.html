@@ -1,24 +1,66 @@
+<div class="search-container">
+
+  <input
+    type="text"
+    placeholder="🔍 Search by Product Name or Category"
+    [(ngModel)]="searchText"
+    (input)="searchProducts()">
+
+</div>
+
 <button class="add-btn" (click)="addProduct()">
-  +Add Product
+  + Add Product
 </button>
 
 <div class="product-container">
-  @for (product of products; track product.name) {
+
+  @for (product of filteredProducts; track product.id) {
+
     <div class="product-card">
-      <h3>{{product.name}}</h3>
 
-      <img [src]="product.image" [alt]="product.name" class="product-image">
+      <h3>{{ product.name }}</h3>
 
-      <p><strong>Description:</strong> {{product.description}}</p>
+      <img
+        [src]="product.image"
+        [alt]="product.name"
+        class="product-image">
 
-      <p><strong>Price:</strong> ₹{{product.price}}</p>
+      <p>
+        <strong>Description:</strong>
+        {{ product.description }}
+      </p>
 
-      <p><strong>Category:</strong> {{product.category}}</p>
+      <p>
+        <strong>Price:</strong>
+        ₹{{ product.price }}
+      </p>
 
-      <p><strong>Stock:</strong> {{product.stock}}</p>
-<button (click)="Edit(product.id)" >Edit</button>
-      <button (click)="cart(product)">Add to Cart</button>
+      <p>
+        <strong>Category:</strong>
+        {{ product.category }}
+      </p>
+
+      <p>
+        <strong>Stock:</strong>
+        {{ product.stock }}
+      </p>
+
+      <button class="edit-btn" (click)="Edit(product.id)">
+        Edit
+      </button>
+
+      <button class="cart-btn" (click)="cart(product)">
+        Add to Cart
+      </button>
+
     </div>
+
+  } @empty {
+
+    <h2 class="no-data">
+      No products found.
+    </h2>
+
   }
 
-</div>  
+</div>

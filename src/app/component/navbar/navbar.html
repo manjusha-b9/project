@@ -1,13 +1,50 @@
 <nav class="navbar">
-<div class="nav-links">
-  <a routerLink="/home">Home</a>
 
-  <a routerLink="/product">Products</a>
+  <div class="logo">
+    <a routerLink="/home">🛒 ShopEasy</a>
+  </div>
 
-  <a routerLink="/addproduct">Add Product</a>
+  <div class="nav-links">
+    <a routerLink="/home" routerLinkActive="active">Home</a>
 
-  <a routerLink="/orderstatus">My Orders</a>
+    <a routerLink="/product" routerLinkActive="active">Products</a>
 
-  <a routerLink="/login">Login</a>
-</div>
+    <a routerLink="/addproduct" routerLinkActive="active">Add Product</a>
+
+    <a routerLink="/orderstatus" routerLinkActive="active">My Orders</a>
+  </div>
+
+  <div class="search-box">
+    <input
+      type="text"
+      placeholder="🔍 Search Products..."
+    />
+  </div>
+
+  @if (isLoggedIn) {
+
+    <div class="user-section">
+
+      <span class="welcome">
+        👋 Welcome, <strong>{{ userName }}</strong>
+      </span>
+
+      <button class="logout-btn" (click)="logout()">
+        Logout
+      </button>
+
+    </div>
+
+  } @else {
+
+    <div class="user-section">
+
+      <button class="login-btn" routerLink="/login">
+        Login
+      </button>
+
+    </div>
+
+  }
+
 </nav>

@@ -10,7 +10,28 @@
    <label for="image">Image:</label>
    <input id="image" type="text" formControlName="image" placeholder="enter url"> 
    <label for="category">Category:</label>
-   <input id="category" type="text" formControlName="category" placeholder="enter category">
+<select
+  id="category"
+  formControlName="category">
+
+  <option value="">-- Select Category --</option>
+
+  @for (category of categories; track category) {
+    <option [value]="category">
+      {{ category }}
+    </option>
+  }
+
+</select>
+
+   @if(productForm.get('category')?.touched &&
+    productForm.get('category')?.invalid){
+
+  <small class="error">
+    Please select a category.
+  </small>
+
+}
    <label for="stock">Stock:</label>
    <input id="stock" type="number" formControlName="stock" placeholder="enter stock">
    <button type="submit" [disabled]="productForm.invalid"> Add product</button>

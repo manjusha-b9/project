@@ -6,6 +6,7 @@ import { Addproduct } from './component/addproduct/addproduct';
 import { Login } from './component/login/login';
 import {  OrderComponent } from './component/ordercomponet/order';
 import { Navbar } from './component/navbar/navbar';
+import { Orderstatus } from './component/orderstatus/orderstatus';
 
 export const routes: Routes = [
     {path:'',component:Navbar},
@@ -15,7 +16,7 @@ export const routes: Routes = [
     {path:'order/:id',component:OrderComponent},
     {path:'addproduct',component:Addproduct},
     {path:'login',component:Login},
-    
+    {path:'orderstatus',component:Orderstatus}
    
 
 ];

@@ -70,7 +70,7 @@
   
 // }
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Orderservice } from '../../services/orderservice';
@@ -94,7 +94,7 @@ export class OrderComponent implements OnInit {
   private fb = inject(FormBuilder);
   private productService = inject(Productservice);
   private route = inject(ActivatedRoute);
-
+private router=inject(Router)
   product!: Productmodel;
 
   orderForm = this.fb.nonNullable.group({
@@ -138,7 +138,7 @@ export class OrderComponent implements OnInit {
         }
       ],
 
-      shoppingAddress: {
+      shippingAddress: {
         address: formValue.address,
         city: formValue.city,
         postalCode: formValue.postalCode
@@ -149,13 +149,24 @@ export class OrderComponent implements OnInit {
 
     this.orderService.placeHolder(order).subscribe({
       next: () => {
+        this.productService.updateProductStatus(this.product.id, formValue.quantity).subscribe({
+      next: () => {
         alert('Order placed successfully. You will receive it soon!');
-        this.orderForm.reset({
-          quantity: 1,
-          address: '',
-          city: '',
-          postalCode: ''
-        });
+        // this.orderForm.reset({
+        //   quantity: 1,
+        //   address: '',
+        //   city: '',
+        //   postalCode: ''
+        // });
+      
+      this.router.navigate(['/product']);
+      
+      
+      },
+      error:(err)=>{
+        console.error(err);
+      }
+      });
       },
       error: (err) => {
         console.error(err);

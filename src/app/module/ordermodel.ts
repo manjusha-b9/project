@@ -13,6 +13,6 @@ export interface ShippingAddress {
 export interface ordermodel {
   userId: string;
   orderItems: OrderItem[];
-  shoppingAddress: ShippingAddress;
+  shippingAddress: ShippingAddress;
   totalPrice: number;
 }

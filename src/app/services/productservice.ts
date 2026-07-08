@@ -23,5 +23,8 @@ export class Productservice {
   AddProduct(product:Productmodel):Observable<Productmodel>{
     return this.http.post<Productmodel>(`${this.ApiUrl}/add`,product)
   }
+  updateProductStatus(id:number,quantity:number):Observable<Productmodel>{ 
+     return this.http.put<Productmodel>(`${this.ApiUrl}/updatestock/${id}`,{quantity})
+  } 
 }
 

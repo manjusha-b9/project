@@ -165,6 +165,30 @@ app.delete("/products/delete/:id", async (req, res) => {
 
 
 });
+//update stock
+app.put("/products/updatestock/:id", async (req, res) => {
+
+    try {
+        const id=Number(req.params.id);
+        const quantity=Number(req.body.quantity);
+        const product=await Product.findOne({id});
+        if(!product){
+            return res.status(404).json({message:"Product not found"});
+        }
+        if(product.stock<quantity){
+            return res.status(400).json({message:"Insufficient stock"});
+        }
+        product.stock-=quantity;
+        await product.save();
+
+        res.json({message:"Stock updated successfully"});
+
+    } catch (error) {
+        console.error('Error updating stock:', error);
+        res.status(500).json({ message: 'Internal server error', error: String(error) });
+    }
+});
+
 //place order
 app.post("/orders/add", async (req, res) => {
 

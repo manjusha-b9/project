@@ -14,7 +14,17 @@
     <input id="image" type="text" [(ngModel)]="product.image" name="image">
     <br>
     <label for="category">Category:</label>
-    <input id="category" type="text" [(ngModel)]="product.category" name="category">
+    <select
+        id="category"
+        [(ngModel)]="product.category"
+        name="category">
+
+        @for (category of categories; track category) {
+            <option [value]="category">
+                {{ category }}
+            </option>
+        }
+    </select>
     <br>
     <label for="stock">Stock:</label>
     <input id="stock" type="number" [(ngModel)]="product.stock" name="stock">

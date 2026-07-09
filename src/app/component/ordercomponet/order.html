@@ -4,7 +4,10 @@
 
 <div class="product-card">
 
-  <img [src]="product.image" [alt]="product.name" width="200">
+  <img
+    [src]="product.image"
+    [alt]="product.name"
+    width="220">
 
   <h3>{{ product.name }}</h3>
 
@@ -12,20 +15,87 @@
 
   <p><strong>Category:</strong> {{ product.category }}</p>
 
+  <p><strong>Available Stock:</strong> {{ product.stock }}</p>
+
 </div>
 
 <form [formGroup]="orderForm" (ngSubmit)="placeOrder()">
 
   <label for="quantity">Quantity</label>
-  <input id="quantity" type="number" formControlName="quantity">
+  <input
+    type="number"
+    formControlName="quantity"
+    min="1"
+    [max]="product.stock" id="quantity">
 
   <label for="address">Address</label>
-  <input id="address" type="text" formControlName="address">
+  <input
+    type="text"
+    formControlName="address"
+    id="address">
 
   <label for="city">City</label>
-  <input id="city" type="text" formControlName="city">
+  <input
+    type="text"
+    formControlName="city"
+    id="city">
+
   <label for="postalCode">Postal Code</label>
-  <input id="postalCode" type="text" formControlName="postalCode">
+  <input
+    type="text"
+    formControlName="postalCode"
+    id="postalCode">
+
+  <hr>
+
+  <h3>Order Summary</h3>
+
+  <table class="summary-table">
+
+    <tr>
+      <td>Product Price</td>
+      <td>₹{{ product.price }}</td>
+    </tr>
+
+    <tr>
+      <td>Quantity</td>
+      <td>{{ orderForm.value.quantity || 1 }}</td>
+    </tr>
+
+    <tr>
+      <td>Subtotal</td>
+      <td>
+        ₹{{ product.price * (orderForm.value.quantity || 1) }}
+      </td>
+    </tr>
+
+    <tr>
+      <td>Shipping</td>
+      <td>
+        {{
+          (product.price * (orderForm.value.quantity || 1)) >= 1000
+            ? 'FREE'
+            : '₹100'
+        }}
+      </td>
+    </tr>
+
+    <tr>
+      <th>Total</th>
+      <th>
+        ₹{{
+          (product.price * (orderForm.value.quantity || 1))
+          +
+          (
+            (product.price * (orderForm.value.quantity || 1)) >= 1000
+              ? 0
+              : 100
+          )
+        }}
+      </th>
+    </tr>
+
+  </table>
 
   <button type="submit">
     Place Order

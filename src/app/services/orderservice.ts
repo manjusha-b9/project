@@ -15,4 +15,7 @@ export class Orderservice {
   getOrder():Observable<ordermodel[]>{
     return this.http.get<ordermodel[]>(this.Api);
   }
+  cancelOrder(orderId:number):Observable<ordermodel[]>{
+  return this.http.put<ordermodel[]>(`${this.Api}/cancel/${orderId}`, { orderId });
+}
 }

@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Product } from './product';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { ActivatedRoute } from '@angular/router';
 
 
 describe('Product', () => {
@@ -12,7 +13,17 @@ describe('Product', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Product],
-      providers:[provideHttpClient(),provideHttpClientTesting()]
+      providers:[provideHttpClient(),provideHttpClientTesting(),
+        {
+          provide:ActivatedRoute,
+          useValue:{
+            snapshot:{
+              paraMap:{},
+              queryParamMap:{}
+            }
+          }
+        }
+      ]
     })
     .compileComponents();
 

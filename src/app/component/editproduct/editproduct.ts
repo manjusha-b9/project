@@ -17,8 +17,21 @@ export class Editproduct implements OnInit {
   private productService = inject(Productservice);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
-
-  product!: Productmodel // initialize as object for ngModel bindings
+  categories: string[] = [
+    'Electronics',
+    'Laptops',
+    'Fashion',
+    'Accessories'
+  ];
+  product: Productmodel ={
+      id: 0,
+  name: '',
+  description: '',
+  price: 0,
+  image: '',
+  category: '',
+  stock: 0
+  }// initialize as object for ngModel bindings
 
   ngOnInit(): void {
     const idParam = this.route.snapshot.paramMap.get('id');

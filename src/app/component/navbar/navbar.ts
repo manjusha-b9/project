@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit} from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
@@ -7,15 +7,16 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
-export class Navbar {
+export class Navbar  implements OnInit {
 
 userName = '';
   isLoggedIn = false;
+  private router=inject(Router);
 
-  constructor(private router: Router) {
+  ngOnInit(): void {
     this.checkLogin();
   }
-
+  
   checkLogin(): void {
     const userId = localStorage.getItem('userId');
     const name = localStorage.getItem('userName');

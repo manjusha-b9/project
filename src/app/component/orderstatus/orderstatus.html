@@ -1,35 +1,121 @@
-<h2>Order Status</h2>
+<h2>My Orders</h2>
 
-@if (orders.length === 0) {
-  <p>No orders found.</p>
-} @else {
-  <table border="1" cellpadding="10">
+@if(orders.length>0){
+
+<table>
+
     <thead>
-      <tr>
-        <th>User ID</th>
-        <th>Product</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Address</th>
-        <th>City</th>
-        <th>Postal Code</th>
-        <th>Total Price</th>
-      </tr>
+
+        <tr>
+
+            <th>Order ID</th>
+
+            <th>Product</th>
+
+            <th>Qty</th>
+
+            <th>Subtotal</th>
+
+            <th>Shipping</th>
+
+            <th>Total</th>
+
+            <th>Status</th>
+
+            <th>Expected Delivery</th>
+
+            <th>Action</th>
+
+        </tr>
+
     </thead>
 
     <tbody>
-      @for (order of orders; track $index) {
-        <tr>
-          <td>{{ order.userId }}</td>
-          <td>{{ order.orderItems[0].name }}</td>
-          <td>{{ order.orderItems[0].quantity }}</td>
-          <td>₹{{ order.orderItems[0].price }}</td>
-          <td>{{ order.shippingAddress.address }}</td>
-          <td>{{ order.shippingAddress.city }}</td>
-          <td>{{ order.shippingAddress.postalCode }}</td>
-          <td>₹{{ order.totalPrice }}</td>
-        </tr>
-      }
-    </tbody>
-  </table>
+
+@for(order of orders;track order.orderId){
+
+<tr>
+
+<td>{{order.orderId}}</td>
+
+<td>{{order.orderItems[0].name}}</td>
+
+<td>{{order.orderItems[0].quantity}}</td>
+
+<td>₹{{order.subtotalPrice}}</td>
+
+<td>
+
+@if(order.shippingCharge===0){
+
+FREE
+
+}
+
+@else{
+
+₹{{order.shippingCharge}}
+
+}
+
+</td>
+
+<td>₹{{order.totalPrice}}</td>
+
+<td>
+
+<span
+[class.pending]="order.status==='Pending'"
+[class.confirmed]="order.status==='Confirmed'"
+[class.shipped]="order.status==='Shipped'"
+[class.delivered]="order.status==='Delivered'"
+[class.cancelled]="order.status==='Cancelled'">
+{{order.status}}
+
+</span>
+
+</td>
+
+<td>
+
+{{order.expectedDeliveryDate | date}}
+
+</td>
+
+<td>
+
+@if(order.status==="Pending"){
+
+<button
+
+(click)="cancelOrder(order.orderId!)">
+
+Cancel
+
+</button>
+
+}
+
+@else{
+
+-
+
+}
+
+</td>
+
+</tr>
+
+}
+
+</tbody>
+
+</table>
+
+}
+
+@else{
+
+<h3>No Orders Found</h3>
+
 }

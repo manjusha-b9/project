@@ -60,7 +60,15 @@ const orderSchema = new mongoose.Schema({
         city: String,
         postalCode: String
     },
-        totalPrice: Number,
+    subtotalPrice: Number,
+    shippingCharge:Number,
+    totalPrice: Number,
+    status:{
+        type:String,
+        default:"Pending"
+
+    },
+    expectedDeliveryDate: Date,
 
     createdAt: {
         type: Date,
@@ -197,6 +205,8 @@ app.post("/orders/add", async (req, res) => {
         const lastOrder=await Order.findOne().sort({orderId:-1});
         //genarate next orderid
         const nextOrderId=lastOrder ? lastOrder.orderId +1:1;
+        const expectedDeliveryDate=new Date();
+        expectedDeliveryDate.setDate(expectedDeliveryDate.getDate()+5);
 
 
         const order = new Order({ 
@@ -206,8 +216,12 @@ app.post("/orders/add", async (req, res) => {
             orderItems: req.body.orderItems,
 
             shippingAddress: req.body.shippingAddress,
+            subtotalPrice: req.body.subtotalPrice,
+            shippingCharge: req.body.shippingCharge,
 
-            totalPrice: req.body.totalPrice
+            totalPrice: req.body.totalPrice,
+            status: req.body.status,
+            expectedDeliveryDate: expectedDeliveryDate
         });
 
         await order.save();
@@ -226,7 +240,7 @@ app.get("/orders", async (req, res) => {
 
     try {
 
-        const orders = await Order.find();
+        const orders = await Order.find().sort({ createdAt: -1 });
 
         res.json(orders);
 
@@ -251,6 +265,45 @@ app.get("/orders/:userId", async (req, res) => {
         res.status(404).json({
             message: "Order Not Found"
         });
+
+    }
+
+});
+
+app.put("/orders/cancel/:orderId", async (req, res) => {
+
+    try {
+
+        const order = await Order.findOne({
+            orderId: Number(req.params.orderId)
+        });
+
+        if (!order) {
+            return res.status(404).json({
+                message: "Order not found"
+            });
+        }
+
+        if (order.status !== "Pending") {
+            return res.status(400).json({
+                message: "Only pending orders can be cancelled."
+            });
+        }
+
+        order.status = "Cancelled";
+
+        await order.save();
+
+        res.json({
+            message: "Order cancelled successfully",
+            order
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json(error);
 
     }
 
